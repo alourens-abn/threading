@@ -37,8 +37,14 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-jersey</artifactId>
+		</dependency>
+
+		<!-- Jakarta RESTful Web Services -->
+		<dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<version>4.0.0</version>
 		</dependency>
 
 		<dependency>
