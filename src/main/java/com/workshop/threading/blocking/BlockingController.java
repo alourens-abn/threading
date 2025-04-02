@@ -16,7 +16,7 @@ public class BlockingController {
   private final ExecutorService executorService;
 
   public BlockingController() {
-    this.executorService = Executors.newFixedThreadPool(400);
+    this.executorService = Executors.newFixedThreadPool(10);
   }
 
   @GET
