@@ -1,24 +1,19 @@
 package com.workshop.threading.io;
 
+import java.time.Duration;
+import reactor.core.publisher.Mono;
+
 public class MockIO {
 
   private static final int millisDb = 5000;
   private static final int millisRest = 10000;
 
-  public static void makeDbCall() {
-    try {
-      Thread.sleep(millisDb);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+  public static Mono<Void> makeDbCall() {
+    return Mono.delay(Duration.ofMillis(millisDb)).then();
   }
 
-  public static void makeRestCall() {
-    try {
-      Thread.sleep(millisRest);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+  public static Mono<Void> makeRestCall() {
+    return Mono.delay(Duration.ofMillis(millisRest)).then();
   }
 
 }

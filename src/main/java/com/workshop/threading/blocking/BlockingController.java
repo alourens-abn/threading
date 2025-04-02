@@ -6,25 +6,16 @@ import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/blocking")
 public class BlockingController {
 
   @GetMapping()
-  public String blocking() {
-    MockIO.makeDbCall();
-    MockIO.makeRestCall();
+  public Mono<String> blocking() {
 
-    List<Thread> myThreads = Thread.getAllStackTraces()
-        .keySet()
-        .stream()
-        .collect(Collectors.toList());
-
-    List<Thread> execThreads = myThreads.stream().filter(thread -> thread.getName().contains("exec")).toList();
-    System.out.println("My threads size: " + myThreads.size());
-//    System.out.println("My threads: " + myThreads);
-    return "ok";
+    return Mono.when(MockIO.makeDbCall(), MockIO.makeRestCall()).thenReturn("ok");
   }
 
 
