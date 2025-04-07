@@ -18,7 +18,7 @@ public class MyApiSimulation extends Simulation {
 
   {
     setUp(
-        myScenario.injectOpen(rampUsers(10000).during(3))
+        myScenario.injectOpen(rampUsers(10000).during(300))
     ).protocols(httpProtocol);
   }
 
