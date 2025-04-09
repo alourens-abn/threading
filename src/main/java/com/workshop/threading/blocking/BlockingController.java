@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-@Path("/blocking")
+@Path("/sandwich")
 public class BlockingController {
 
   private final ExecutorService executorService;
@@ -19,7 +19,7 @@ public class BlockingController {
     this.executorService = Executors.newFixedThreadPool(10);
   }
 
-  @GET
+  @GET("/cheese")
   public void blocking(@Suspended final AsyncResponse asyncResponse) {
     Future<?> dbFuture = executorService.submit(() -> {
       MockIO.makeDbCall();
@@ -40,4 +40,7 @@ public class BlockingController {
       }
     });
   }
+
+
 }
+

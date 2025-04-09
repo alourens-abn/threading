@@ -2,20 +2,20 @@ package com.workshop.threading.io;
 
 public class MockIO {
 
-  private static final int millisDb = 5000;
-  private static final int millisRest = 10000;
+  private static final int CUT_CHEESE = 5000;
+  private static final int BUTTER_BREAD = 10000;
 
-  public static void makeDbCall() {
+  public static void cutCheese() {
     try {
-      Thread.sleep(millisDb);
+      Thread.sleep(CUT_CHEESE);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
   }
 
-  public static void makeRestCall() {
+  public static void butterBread() {
     try {
-      Thread.sleep(millisRest);
+      Thread.sleep(BUTTER_BREAD);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

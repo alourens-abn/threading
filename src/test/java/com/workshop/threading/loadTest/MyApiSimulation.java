@@ -14,9 +14,12 @@ public class MyApiSimulation extends Simulation {
           .acceptHeader("text/html");
 
   ScenarioBuilder myScenario = scenario("My Scenario")
-      .exec(http("Request to /blocking").get("/blocking"));
+      .exec(http("Request to /sandwich/cheese").get("/sandwich/cheese"));
 
   {
+    //Please change the value of the rampUsers and duration to the value specified for your task.
+    //The duration is in seconds.
+    //5 minutes = 300 seconds.
     setUp(
         myScenario.injectOpen(rampUsers(10000).during(3))
     ).protocols(httpProtocol);
