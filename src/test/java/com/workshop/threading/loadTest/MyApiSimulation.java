@@ -14,7 +14,7 @@ public class MyApiSimulation extends Simulation {
           .acceptHeader("text/html");
 
   ScenarioBuilder myScenario = scenario("My Scenario")
-      .exec(http("Request to /blocking").get("/blocking"));
+      .exec(http("Request to /sandwich/cheese").get("/sandwich/cheese"));
 
   {
     setUp(
