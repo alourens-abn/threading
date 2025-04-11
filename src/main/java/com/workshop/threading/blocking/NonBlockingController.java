@@ -1,6 +1,6 @@
 package com.workshop.threading.blocking;
 
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
+import com.workshop.threading.io.MockIO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,9 +12,10 @@ public class NonBlockingController {
 
   @GetMapping("/cheese")
   public Mono<String> getCheeseSandwich() {
-
-    //todo: implement your solution here
-    return Mono.error(new NotImplementedException("Implement the cheese sandwich endpoint"));
+    return Mono.when(
+        MockIO.makeDbCall(),
+        MockIO.makeRestCall()
+    ).then(Mono.just("cheese sandwich"));
   }
 
 
