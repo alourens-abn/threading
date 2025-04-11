@@ -21,7 +21,7 @@ public class MyApiSimulation extends Simulation {
     //The duration is in seconds.
     //5 minutes = 300 seconds.
     setUp(
-        myScenario.injectOpen(rampUsers(10000).during(3))
+        myScenario.injectOpen(rampUsers(10_000).during(300))
     ).protocols(httpProtocol);
   }
 
