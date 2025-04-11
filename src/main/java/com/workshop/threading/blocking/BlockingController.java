@@ -5,8 +5,10 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.container.AsyncResponse;
 import jakarta.ws.rs.container.Suspended;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @Path("/sandwich")
 public class BlockingController {
@@ -20,19 +22,25 @@ public class BlockingController {
   @GET
   @Path("/cheese")
   public void blocking(@Suspended final AsyncResponse asyncResponse) {
-    try {
-      // Submit tasks to the executor service
-      var future1 = executorService.submit(MockIO::cutCheese);
-      var future2 = executorService.submit(MockIO::butterBread);
 
-      // Wait for both tasks to complete
-      future1.get();
-      future2.get();
-      asyncResponse.resume("ok");
-    } catch (Exception e) {
-      e.printStackTrace();
-      asyncResponse.resume("error");
-    }
+    Future<?> breadFuture = executorService.submit(() -> {
+      MockIO.butterBread();
+      return null;
+    });
+    Future<?> cheeseFuture = executorService.submit(() -> {
+      MockIO.cutCheese();
+      return null;
+    });
+
+    executorService.submit(() -> {
+      try {
+        breadFuture.get(); // Wait for the DB call to complete
+        cheeseFuture.get(); // Wait for the REST call to complete
+        asyncResponse.resume("ok");
+      } catch (InterruptedException | ExecutionException e) {
+        asyncResponse.resume(e);
+      }
+    });
   }
 
 
