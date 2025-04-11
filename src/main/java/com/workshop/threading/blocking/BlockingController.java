@@ -20,9 +20,19 @@ public class BlockingController {
 
   @GetMapping("/cheese")
   public String getCheeseSandwich() {
-    //todo: add your executor thread pool implementation here
-    MockIO.cutCheese();
-    MockIO.butterBread();
+
+    try {
+      // Submit tasks to the executor service
+      var future1 = executorService.submit(MockIO::cutCheese);
+      var future2 = executorService.submit(MockIO::butterBread);
+
+      // Wait for both tasks to complete
+      future1.get();
+      future2.get();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "error";
+    }
 
     return "ok";
   }
